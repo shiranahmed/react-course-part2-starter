@@ -8,12 +8,16 @@ interface Post {
   userId: number;
 }
 
-const usePost = () =>
+const usePost = (userId: number | undefined) =>
   useQuery<Post[], Error>({
-    queryKey: ["Post"],
+    queryKey: userId ? ["users", userId, "posts"] : ["posts"],
     queryFn: () =>
       axios
-        .get("https://jsonplaceholder.typicode.com/posts")
+        .get("https://jsonplaceholder.typicode.com/posts", {
+          params: {
+            userId,
+          },
+        })
         .then((res) => res.data),
     staleTime: 1 * 60 * 1000, // 1minute
   });
