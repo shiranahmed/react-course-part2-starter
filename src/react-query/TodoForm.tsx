@@ -1,9 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
 import { Todo } from "./hooks/useTodos";
 import axios from "axios";
 
 const TodoForm = () => {
+  const queryClient = useQueryClient();
   const addTodo = useMutation({
     mutationFn: (todo: Todo) =>
       axios
@@ -11,6 +12,9 @@ const TodoForm = () => {
         .then((res) => res.data),
     onSuccess: (saveTodo, newTodo) => {
       console.log(saveTodo);
+      queryClient.invalidateQueries({
+        queryKey: ["todos"],
+      });
     },
   });
   const ref = useRef<HTMLInputElement>(null);
