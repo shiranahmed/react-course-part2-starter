@@ -20,12 +20,16 @@ function App() {
   const [user, authDispatch] = useReducer(authReducer, "");
 
   return (
-    <AuthProvider>
-      <TaskContext.Provider value={{ task, dispatch }}>
-        <NavBar></NavBar>
-        <TaskList></TaskList>
-      </TaskContext.Provider>
-    </AuthProvider>
+    // <AuthProvider>
+    //   <TaskContext.Provider value={{ task, dispatch }}>
+    //     <NavBar></NavBar>
+    //     <TaskList></TaskList>
+    //   </TaskContext.Provider>
+    // </AuthProvider>
+    <>
+      <TodoForm></TodoForm>
+      <TodoList></TodoList>
+    </>
   );
 }
 
